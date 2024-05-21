@@ -5,6 +5,8 @@ import { Dialog } from 'primereact/dialog';
 import { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from 'primereact/inputtextarea';
+import { useForm } from "react-hook-form";
+import { useBuscarCategorias } from "../../hooks/hookTarefas";
         
 
 const HomeContainer = styled.section``;
@@ -12,6 +14,15 @@ const HomeContainer = styled.section``;
 const Home = () => {
 
   const [visibleDialog, setVisibleDialog] = useState(false);
+  const {register, handleSubmit, reset, formState:{ errors }} = useForm();
+
+    // const { data: categorias} = useBuscarCategorias();
+
+    // const criarTarefa = (dados) => {
+    //   console.log(dados);
+    // }
+    
+    // console.log(categorias && categorias);
 
     return ( 
       <HomeContainer>
@@ -32,10 +43,24 @@ const Home = () => {
         onHide={() => setVisibleDialog(false)}
         header="Criar tarefa">
 
-          <form className="flex flex-column gap-3">
-            <InputText placeholder="Titulo" />
-            <InputTextarea placeholder="Descreva a tarefa" />
-            <Button type="submit" label="Criar" />
+          <form
+          onSubmit={handleSubmit(crirarTarefa)}
+          className="flex flex-column gap-3"
+          >
+
+            <InputText placeholder="Titulo" 
+            {...register("titulo", {required:true})}
+            />
+
+            <InputTextarea 
+            placeholder="Descreva a tarefa" 
+            {...register("descricao")}
+            />
+
+            <Button 
+            type="submit" label="Criar" 
+            />
+
           </form>
 
         </Dialog>
