@@ -6,7 +6,8 @@ import { useState } from "react";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from 'primereact/inputtextarea';
 import { useForm } from "react-hook-form";
-import { useBuscarCategorias } from "../../hooks/hookTarefas";
+import { useBuscarCategorias, useCriarTarefa } from "../../hooks/hookTarefas";
+import { Dropdown } from 'primereact/dropdown';
         
 
 const HomeContainer = styled.section``;
@@ -14,15 +15,16 @@ const HomeContainer = styled.section``;
 const Home = () => {
 
   const [visibleDialog, setVisibleDialog] = useState(false);
-  const {register, handleSubmit, reset, formState:{ errors }} = useForm();
+  const [categoria, setCategoria] = useState();
+  const {register, handleSubmit, reset, formState:{ errors }, setValue } = useForm();
 
-    // const { data: categorias} = useBuscarCategorias();
+    const { data: categorias} = useBuscarCategorias();
+    const {data: tarefas} = useBuscarTarefas();
+    const { mutateAsync: handleCriar} = useCriarTarefa();
 
-    // const criarTarefa = (dados) => {
-    //   console.log(dados);
-    // }
-    
-    // console.log(categorias && categorias);
+    const criarTarefa = (dados) => {
+      handleCriar(dados);
+    }
 
     return ( 
       <HomeContainer>
@@ -44,7 +46,7 @@ const Home = () => {
         header="Criar tarefa">
 
           <form
-          onSubmit={handleSubmit(crirarTarefa)}
+          onSubmit={handleSubmit(criarTarefa)}
           className="flex flex-column gap-3"
           >
 
@@ -56,6 +58,18 @@ const Home = () => {
             placeholder="Descreva a tarefa" 
             {...register("descricao")}
             />
+
+            <Dropdown 
+              value={categoria}
+              options={categorias}
+              optionLabel="nome"
+              optionValue="id"
+              placeholder="Escolha uma categoria"
+              onChange={(e) => {
+                setValue("categoria, e.value");
+                setCategoria(e.value);
+              }}
+              />
 
             <Button 
             type="submit" label="Criar" 

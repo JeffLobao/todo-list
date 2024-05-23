@@ -1,20 +1,28 @@
 {
-    "categorias": [
-        {
-            "id":1,
-            "nome": "mercado"
-        },
-        {
-            "id":2,
-            "nome": "trabalho"
-        },
-        {
-            "id":3,
-            "nome": "estudo"
-        },
-        {
-            "id":4,
-            "nome": "lazer"
-        }
-    ]
+  "categorias": [
+    {
+      "id": 1,
+      "nome": "mercado"
+    },
+    {
+      "id": 2,
+      "nome": "trabalho"
+    },
+    {
+      "id": 3,
+      "nome": "estudo"
+    },
+    {
+      "id": 4,
+      "nome": "lazer"
+    }
+  ],
+  "tarefas": [
+    {
+      "titulo": "teste",
+      "descricao": "testetesteteste",
+      "categoria, e": {},
+      "id": 1
+    }
+  ]
 }
