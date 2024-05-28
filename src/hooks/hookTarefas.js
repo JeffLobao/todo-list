@@ -1,7 +1,17 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { API } from "../services/index."
+import { API, queryClient } from "../services/index."
 
 export const useBuscarCategorias = () => {
+    return useQuery({
+        queryKey: ["categorias"],
+        queryFn: async () => {
+            const request = await API.get('/categorias');
+            return request.data;
+        }
+    })
+}
+
+export const userBuscarTarefas = () => {
     return useQuery({
         queryKey: ["tarefas"],
         queryFn: async () => {
@@ -16,6 +26,25 @@ export const useCriarTarefa = () => {
         mutationFn: async (dados) => {
             const request = await API.post('/tarefas', dados);
             return request.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['tarefas']
+            })
         }
-    })
+    });
+}
+
+export const useDeletarTarefa = () => {
+    return useMutation({
+        mutationFn: async (id) => {
+            const request = await API.delete(`/tarefas/${id}`)
+            return request.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['tarefas']
+            })
+        }
+    });
 }

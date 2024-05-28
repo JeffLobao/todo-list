@@ -20,9 +20,21 @@
   "tarefas": [
     {
       "titulo": "teste",
-      "descricao": "testetesteteste",
-      "categoria, e": {},
+      "descricao": "testet",
+      "categoria": 1,
       "id": 1
+    },
+    {
+      "titulo": "teste3",
+      "descricao": "dededas",
+      "categoria": 3,
+      "id": 3
+    },
+    {
+      "titulo": "teste4",
+      "descricao": "hooroke",
+      "categoria": 4,
+      "id": 4
     }
   ]
 }
